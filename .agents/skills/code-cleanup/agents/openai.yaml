@@ -1,0 +1,6 @@
+interface:
+  display_name: "Code Cleanup"
+  short_description: "Find cleanup targets and unused legacy code"
+  icon_small: "./assets/broom.png"
+  icon_large: "./assets/broom.png"
+  default_prompt: "Use $code-cleanup to review code changed in this thread for dead code, effectless paths, and unused legacy code."

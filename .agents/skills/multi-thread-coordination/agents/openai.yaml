@@ -1,0 +1,9 @@
+interface:
+  display_name: "Multi-Thread Coordination"
+  short_description: "Coordinate dependency-aware multi-thread Codex work"
+  icon_small: "./assets/thread-coordination.png"
+  icon_large: "./assets/thread-coordination.png"
+  default_prompt: "Use $multi-thread-coordination to coordinate a parent work item across visible Codex worker threads. Enforce parent confirmation, child work confirmation, dependency-aware execution waves, one-turn workflow gates, worktree workers, cross verification, release, and parent issue closeout."
+
+policy:
+  allow_implicit_invocation: true

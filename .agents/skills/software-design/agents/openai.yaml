@@ -1,0 +1,9 @@
+interface:
+  display_name: "Software Design"
+  short_description: "Design minimal, test-anchored software changes"
+  icon_small: "./assets/software-design.png"
+  icon_large: "./assets/software-design.png"
+  default_prompt: "Use $software-design to design this change with minimal structural complexity and regression-safe boundaries."
+
+policy:
+  allow_implicit_invocation: true

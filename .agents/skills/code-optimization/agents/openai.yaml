@@ -1,0 +1,6 @@
+interface:
+  display_name: "Code Optimization"
+  short_description: "Reduce custom logic and unnecessary complexity"
+  icon_small: "./assets/optimization.png"
+  icon_large: "./assets/optimization.png"
+  default_prompt: "Use $code-optimization to review code changed in this thread for custom logic, overcomplicated implementations, and avoidable code bloat."

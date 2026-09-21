@@ -1,0 +1,9 @@
+interface:
+  display_name: "Git Commit Policy"
+  short_description: "Enforce Korean commit message policy"
+  icon_small: "./assets/git.png"
+  icon_large: "./assets/git.png"
+  default_prompt: "Use $git-commit-policy before creating the commit message for this change."
+
+policy:
+  allow_implicit_invocation: true

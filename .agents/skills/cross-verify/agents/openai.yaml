@@ -1,0 +1,9 @@
+interface:
+  display_name: "Cross Verify"
+  short_description: "Run independent agent cross-checks"
+  icon_small: "./assets/cross-verify.png"
+  icon_large: "./assets/cross-verify.png"
+  default_prompt: "Use $cross-verify to run independent subagent checks and synthesize the best supported conclusion."
+
+policy:
+  allow_implicit_invocation: true

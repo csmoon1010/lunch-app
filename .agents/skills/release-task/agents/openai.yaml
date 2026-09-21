@@ -1,0 +1,9 @@
+interface:
+  display_name: "Release Task"
+  short_description: "Update branch, test, commit, and push"
+  icon_small: "./assets/release.png"
+  icon_large: "./assets/release.png"
+  default_prompt: "Use $release-task to update the current branch, run the full test suite, commit clean changes, and push."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,25 @@
+name: 기능 요청
+description: 새 기능을 요청한다. 의도와 수용 기준을 적는다.
+labels: ["type:feature"]
+body:
+  - type: textarea
+    id: intent
+    attributes:
+      label: 의도
+      description: 누가 왜 필요한가
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 수용 기준
+      description: 완료를 판정할 수 있게 체크박스로 적는다
+      value: |
+        - [ ] 
+    validations:
+      required: true
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: 범위 밖
+      description: 이번에 바꾸지 않을 것

@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Code Antipattern Review"
+  short_description: "Review LOC-inflating AI code smells"
+  default_prompt: "Use $ai-code-antipattern-review to review this code for AI-style LOC bloat and recommend behavior-preserving simplifications."

@@ -1,0 +1,31 @@
+name: 버그 보고
+description: 결함을 알린다. 재현 절차와 기대 결과를 적는다.
+labels: ["type:bug"]
+body:
+  - type: textarea
+    id: symptom
+    attributes:
+      label: 현상
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 재현 절차
+      value: |
+        1. 
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 기대 결과
+  - type: textarea
+    id: actual
+    attributes:
+      label: 실제 결과
+  - type: input
+    id: environment
+    attributes:
+      label: 환경
+      description: OS, 브라우저, 앱 버전 등
