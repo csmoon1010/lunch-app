@@ -1,0 +1,29 @@
+:root {
+    color-scheme: light dark;
+    --bg: #ffffff;
+    --surface: #f7f7f8;
+    --text: #1f2328;
+    --muted: #6b7280;
+    --accent: #10a37f;
+    --border: #e5e7eb;
+    font-family: "Pretendard", "Apple SD Gothic Neo", system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root { --bg: #212121; --surface: #2a2a2a; --text: #ececec; --muted: #a1a1aa; --border: #3f3f46; }
+}
+
+body { margin: 0; background: var(--bg); color: var(--text); }
+#root { padding: 16px; }
+
+.widget-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.widget-header h1 { margin: 0; font-size: 17px; }
+
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0; padding: 0; list-style: none; }
+.card { display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+.emoji { font-size: 28px; }
+.name { font-size: 15px; white-space: nowrap; }
+.meta { color: var(--muted); font-size: 12px; }
+.price { font-weight: 600; }
+
+.empty { color: var(--muted); }

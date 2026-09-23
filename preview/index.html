@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lunch App 미리보기</title>
+    <link rel="stylesheet" href="./preview.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <strong>Lunch App 미리보기</strong>
+      <span>ChatGPT 대신 위젯을 띄워 보는 개발용 호스트 · MCP 서버 <code>/mcp</code></span>
+    </header>
+    <main class="layout">
+      <form id="request" class="panel">
+        <h2>도구 호출</h2>
+        <label>예산(원)<input name="budget" type="number" value="10000" step="500" /></label>
+        <label>최대 도보(분)<input name="maxWalkMinutes" type="number" value="10" /></label>
+        <button type="submit">recommend_lunch 호출</button>
+        <h2>호스트 로그</h2>
+        <ol id="log" class="log"></ol>
+      </form>
+      <section class="chat">
+        <div class="bubble user" id="prompt">1만 원 이하로 10분 안에 갈 수 있는 점심 추천해 줘</div>
+        <div class="bubble assistant" id="assistant">위젯을 불러오는 중…</div>
+        <div class="app-card"><iframe id="widget" title="점심 추천 위젯" sandbox="allow-scripts"></iframe></div>
+      </section>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

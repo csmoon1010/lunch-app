@@ -1,12 +1,28 @@
+import { readFile } from "node:fs/promises";
+import { registerAppResource, registerAppTool, RESOURCE_MIME_TYPE } from "@modelcontextprotocol/ext-apps/server";
 import { McpServer } from "@modelcontextprotocol/server";
 import { z } from "zod";
 import { recommendLunch } from "../domain/recommend.js";
+
+/** 추천 결과를 그리는 위젯 리소스. */
+export const WIDGET_URI = "ui://lunch/recommendations.html";
+
+/** 위젯 HTML을 만든다. 스크립트는 npm run build:widget이 만든 dist/widget.js를 인라인한다. */
+async function widgetHtml(): Promise<string> {
+    const [script, css] = await Promise.all([readFile("dist/widget.js", "utf8"), readFile("src/widget/styles.css", "utf8")]);
+    return `<!doctype html><html lang="ko"><head><meta charset="utf-8"><style>${css}</style></head>`
+        + `<body><div id="root"></div><script type="module">${script}</script></body></html>`;
+}
 
 /** 요청마다 새 MCP 서버를 만든다(무상태 Streamable HTTP). */
 export function createLunchServer(): McpServer {
     const server = new McpServer({ name: "lunch-app", version: "0.1.0" });
 
-    server.registerTool("recommend_lunch", {
+    registerAppResource(server, "점심 추천 위젯", WIDGET_URI, { description: "추천 식당 카드 화면" }, async () => ({
+        contents: [{ uri: WIDGET_URI, mimeType: RESOURCE_MIME_TYPE, text: await widgetHtml() }],
+    }));
+
+    registerAppTool(server, "recommend_lunch", {
         title: "점심 추천",
         description: "회사 근처 식당 중에서 예산, 도보 시간, 최근 방문 기록을 고려해 점심 후보를 추천한다.",
         inputSchema: z.object({
@@ -15,6 +31,7 @@ export function createLunchServer(): McpServer {
             recentVisits: z.array(z.object({ restaurantId: z.string(), date: z.string() })).optional().describe("최근 방문 기록"),
         }),
         annotations: { readOnlyHint: true, openWorldHint: false },
+        _meta: { ui: { resourceUri: WIDGET_URI } },
     }, async (args) => {
         const candidates = recommendLunch({ ...args, today: new Date().toISOString().slice(0, 10) });
         return {

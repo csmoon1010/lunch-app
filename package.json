@@ -5,13 +5,16 @@
   "type": "module",
   "description": "회사 근처 점심을 추천하고 팀 투표를 받는 ChatGPT 앱(MCP Apps)",
   "scripts": {
-    "dev": "tsx watch src/server/index.ts",
-    "start": "tsx src/server/index.ts",
-    "build": "tsc --noEmit",
+    "dev": "npm run build:widget && concurrently -k -n server,widget,preview \"tsx watch src/server/index.ts\" \"npm run build:widget -- --watch\" \"vite --config preview/vite.config.ts\"",
+    "start": "npm run build:widget && tsx src/server/index.ts",
+    "build:widget": "esbuild src/widget/main.ts --bundle --format=esm --minify --outfile=dist/widget.js",
+    "build": "tsc --noEmit && npm run build:widget",
     "test": "vitest run"
   },
   "dependencies": {
+    "@modelcontextprotocol/client": "^2.2.0",
     "@modelcontextprotocol/express": "^2.0.1",
+    "@modelcontextprotocol/ext-apps": "^2.0.3",
     "@modelcontextprotocol/node": "^2.1.0",
     "@modelcontextprotocol/server": "^2.2.0",
     "express": "^5.1.0",
@@ -20,8 +23,11 @@
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/node": "^24.0.0",
+    "concurrently": "^10.0.5",
+    "esbuild": "^0.28.2",
     "tsx": "^4.23.15",
     "typescript": "~5.9.0",
+    "vite": "^8.3.0",
     "vitest": "^5.0.0"
   }
 }
