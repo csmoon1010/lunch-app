@@ -1,0 +1,4 @@
+[mcp_servers.lunch_app]
+url = "http://localhost:3000/mcp"
+default_tools_approval_mode = "prompt"
+

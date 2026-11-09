@@ -3,29 +3,58 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lunch App 미리보기</title>
+    <title>Lunch 추천 앱</title>
     <link rel="stylesheet" href="./preview.css" />
   </head>
-  <body>
+  <body data-theme="light">
     <header class="topbar">
-      <strong>Lunch App 미리보기</strong>
-      <span>ChatGPT 대신 위젯을 띄워 보는 개발용 호스트 · MCP 서버 <code>/mcp</code></span>
+      <a class="brand" href="#" aria-label="Lunch 추천 앱 홈">
+        <span class="brand-mark" aria-hidden="true">L</span>
+        <span class="brand-name">Lunch <span>추천 앱</span></span>
+      </a>
+      <div class="host-controls">
+        <div class="segmented-control" role="group" aria-label="테마 선택">
+          <button id="theme-light" type="button" aria-pressed="true">라이트</button>
+          <button id="theme-dark" type="button" aria-pressed="false">다크</button>
+        </div>
+        <div class="segmented-control" role="group" aria-label="위젯 표시 모드">
+          <button id="mode-inline" type="button" aria-pressed="true">인라인</button>
+          <button id="mode-fullscreen" type="button" aria-pressed="false">전체 화면</button>
+        </div>
+      </div>
     </header>
-    <main class="layout">
-      <form id="request" class="panel">
-        <h2>도구 호출</h2>
-        <label>예산(원)<input name="budget" type="number" value="10000" step="500" /></label>
-        <label>최대 도보(분)<input name="maxWalkMinutes" type="number" value="10" /></label>
-        <button type="submit">recommend_lunch 호출</button>
-        <h2>호스트 로그</h2>
-        <ol id="log" class="log"></ol>
-      </form>
-      <section class="chat">
-        <div class="bubble user" id="prompt">1만 원 이하로 10분 안에 갈 수 있는 점심 추천해 줘</div>
-        <div class="bubble assistant" id="assistant">위젯을 불러오는 중…</div>
-        <div class="app-card"><iframe id="widget" title="점심 추천 위젯" sandbox="allow-scripts"></iframe></div>
-      </section>
-    </main>
+
+    <div id="workspace" class="workspace" data-display-mode="inline">
+      <aside class="sidebar" aria-label="미리보기 설정">
+        <button class="new-chat" type="button"><span aria-hidden="true">＋</span> 새 채팅</button>
+        <section class="sidebar-section">
+          <h1>호스트 설정</h1>
+          <form id="request" class="request-form">
+            <label>예산 (원)<input name="budget" type="number" value="10000" step="500" /></label>
+            <label>최대 도보 시간 (분)<input name="maxWalkMinutes" type="number" value="10" /></label>
+            <button class="submit-button" type="submit">점심 추천 받기</button>
+          </form>
+        </section>
+        <section class="sidebar-section log-section">
+          <div class="section-heading">
+            <h2>호스트 로그</h2>
+            <button id="clear-log" class="clear-button" type="button">지우기</button>
+          </div>
+          <ol id="log" class="log" aria-live="polite"></ol>
+        </section>
+      </aside>
+
+      <main class="chat" aria-label="대화 미리보기">
+        <div class="conversation">
+          <div class="bubble user" id="prompt">1만 원 이하로 10분 안에 갈 수 있는 점심 추천해 줘</div>
+          <div class="assistant-message">
+            <span class="assistant-mark" aria-hidden="true">✳</span>
+            <div class="bubble assistant" id="assistant">추천을 불러오는 중…</div>
+          </div>
+          <div class="app-card"><iframe id="widget" title="점심 추천 위젯" sandbox="allow-scripts"></iframe></div>
+        </div>
+      </main>
+    </div>
     <script type="module" src="./main.ts"></script>
   </body>
 </html>
