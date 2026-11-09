@@ -1,8 +1,39 @@
 import { describe, expect, it } from "vitest";
-import { filterRestaurants, pickByWeight, recommendLunch } from "./recommend.js";
-import { RESTAURANTS } from "./restaurants.js";
+import { filterRestaurants, pickByWeight, recommendLunch, sortRestaurants } from "./recommend.js";
+import { RESTAURANTS, type Restaurant } from "./restaurants.js";
 
 const today = "2026-09-24";
+const candidates: Restaurant[] = [
+    { id: "c", name: "C", category: "test", price: 9000, walkMinutes: 2, emoji: "" },
+    { id: "a", name: "A", category: "test", price: 9000, walkMinutes: 3, emoji: "" },
+    { id: "d", name: "D", category: "test", price: 7000, walkMinutes: 2, emoji: "" },
+    { id: "b", name: "B", category: "test", price: 8000, walkMinutes: 5, emoji: "" },
+];
+
+describe("recommendation sorting", () => {
+    it("keeps the original selection order when sort is omitted", () => {
+        expect(recommendLunch({ today, count: 3 }, candidates, () => 0).map((r) => r.id)).toEqual(["c", "a", "d"]);
+    });
+
+    it("sorts by price and preserves the selection set", () => {
+        const original = recommendLunch({ today, count: 3 }, candidates, () => 0);
+        const sorted = recommendLunch({ today, count: 3, sort: "price" }, candidates, () => 0);
+        expect(sorted.map((r) => r.id)).toEqual(["d", "c", "a"]);
+        expect(sorted.map((r) => r.id).sort()).toEqual(original.map((r) => r.id).sort());
+    });
+
+    it("sorts by walk while preserving ties in their previous order", () => {
+        expect(sortRestaurants(candidates, "walk").map((r) => r.id)).toEqual(["c", "d", "a", "b"]);
+    });
+
+    it("sorts by price while preserving ties in their previous order", () => {
+        expect(sortRestaurants(candidates, "price").map((r) => r.id)).toEqual(["d", "b", "c", "a"]);
+    });
+
+    it("returns the original array unchanged when no sort is selected", () => {
+        expect(sortRestaurants(candidates)).toBe(candidates);
+    });
+});
 
 describe("filterRestaurants", () => {
     it("도보 시간 조건을 넘는 식당은 제외한다", () => {

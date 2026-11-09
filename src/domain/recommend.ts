@@ -4,6 +4,7 @@ import { RESTAURANTS, type Restaurant } from "./restaurants.js";
 export const DEFAULT_COUNT = 3;
 
 export type Visit = { restaurantId: string; date: string };
+export type RecommendSort = "price" | "walk";
 
 export type RecommendInput = {
     /** 1인 예산(원). 이 금액 이하인 식당만 추천한다. */
@@ -16,6 +17,7 @@ export type RecommendInput = {
     /** 기준 날짜(YYYY-MM-DD). */
     today: string;
     count?: number;
+    sort?: RecommendSort;
 };
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -49,6 +51,13 @@ export function pickByWeight<T>(items: T[], weight: (item: T) => number, random:
     return items[items.length - 1];
 }
 
+/** Return candidates sorted by price or walking time; ties keep their current order. */
+export function sortRestaurants(restaurants: Restaurant[], sort?: RecommendSort): Restaurant[] {
+    if (sort === undefined) return restaurants;
+    const key = sort === "price" ? "price" : "walkMinutes";
+    return [...restaurants].sort((left, right) => left[key] - right[key]);
+}
+
 /** 조건에 맞는 식당 중에서 서로 다른 후보를 count개 고른다. */
 export function recommendLunch(input: RecommendInput, restaurants: Restaurant[] = RESTAURANTS, random: () => number = Math.random): Restaurant[] {
     const pool = filterRestaurants(restaurants, input);
@@ -58,5 +67,5 @@ export function recommendLunch(input: RecommendInput, restaurants: Restaurant[] 
         picked.push(choice);
         pool.splice(pool.indexOf(choice), 1);
     }
-    return picked;
+    return sortRestaurants(picked, input.sort);
 }

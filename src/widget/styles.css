@@ -18,6 +18,8 @@ body { margin: 0; background: var(--bg); color: var(--text); }
 
 .widget-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 .widget-header h1 { margin: 0; font-size: 17px; }
+.sort-control { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; }
+.sort-control select { padding: 6px 8px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); font: inherit; }
 
 .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0; padding: 0; list-style: none; }
 .card { display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
